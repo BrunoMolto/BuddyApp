@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parlez-Vous - French Conversation for Kids</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'french-blue': '#1D4ED8',
+                        'french-red': '#EF4444',
+                        'kid-green': '#10B981',
+                        'kid-amber': '#F59E0B',
+                        'soft-purple': '#8B5CF6'
+                    },
+                    fontFamily: {
+                        'playful': ['Fredoka One', 'cursive'],
+                        'readable': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/index.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-readable">
+    <!-- @COMPONENT: Header [logo, navigation, user profile] -->
+    <header class="bg-white shadow-sm border-b-2 border-french-blue/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-french-blue rounded-xl flex items-center justify-center">
+                        <span class="text-white font-playful text-lg">PV</span>
+                    </div>
+                    <h1 class="font-playful text-2xl text-french-blue">Parlez-Vous</h1>
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-french-blue font-medium transition-colors">Conversations</a>
+                    <a href="#" class="text-gray-700 hover:text-french-blue font-medium transition-colors">Vocabulary</a>
+                    <a href="#" class="text-gray-700 hover:text-french-blue font-medium transition-colors">Progress</a>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    <div class="bg-kid-green/10 px-3 py-1 rounded-full">
+                        <span class="text-kid-green font-semibold text-sm" data-bind="user.streak">🔥 5 day streak!</span>
+                    </div>
+                    <div class="w-8 h-8 bg-kid-amber rounded-full" data-mock="true">
+                        <!-- User avatar placeholder -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <!-- @COMPONENT: Sidebar [conversation topics, progress] -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                    <h3 class="font-playful text-lg text-gray-800 mb-4">Choose Your Adventure! 🎯</h3>
+                    
+                    <!-- @MAP: conversationTopics.map(topic => ( -->
+                    <div class="space-y-3">
+                        <button class="w-full text-left p-4 bg-french-blue text-white rounded-xl hover:bg-french-blue/90 transition-all transform hover:scale-105" data-event="click:selectTopic" data-implementation="Should load conversation topic">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">👋</span>
+                                <div>
+                                    <h4 class="font-semibold">Se Présenter</h4>
+                                    <p class="text-blue-100 text-sm">Introducing Yourself</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-french-blue hover:shadow-md transition-all" data-event="click:selectTopic">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">👨‍👩‍👧‍👦</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-700">La Famille</h4>
+                                    <p class="text-gray-500 text-sm">Talking About Family</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-french-blue hover:shadow-md transition-all" data-event="click:selectTopic">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🏫</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-700">L'École</h4>
+                                    <p class="text-gray-500 text-sm">School Life</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-french-blue hover:shadow-md transition-all" data-event="click:selectTopic">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🎨</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-700">Mes Loisirs</h4>
+                                    <p class="text-gray-500 text-sm">Hobbies & Fun</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-french-blue hover:shadow-md transition-all" data-event="click:selectTopic">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🍎</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-700">La Nourriture</h4>
+                                    <p class="text-gray-500 text-sm">Food & Meals</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+                
+                <!-- Progress Card -->
+                <div class="bg-gradient-to-br from-kid-green to-kid-green/80 rounded-2xl shadow-lg p-6 text-white">
+                    <h3 class="font-playful text-lg mb-3">Your Progress 📊</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Conversations Today</span>
+                            <span class="font-bold" data-bind="progress.conversationsToday">3</span>
+                        </div>
+                        <div class="w-full bg-white/20 rounded-full h-2">
+                            <div class="bg-white rounded-full h-2" style="width: 60%" data-bind="progress.dailyGoal"></div>
+                        </div>
+                        <div class="text-xs text-green-100">Goal: 5 conversations per day</div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: Sidebar -->
+            
+            <!-- @COMPONENT: MainConversationArea [chat interface, input, suggestions] -->
+            <div class="lg:col-span-3">
+                <!-- Conversation Header -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <!-- French teacher character placeholder -->
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-soft-purple to-french-blue flex items-center justify-center">
+                                <span class="text-2xl">👩‍🏫</span>
+                            </div>
+                            <div>
+                                <h2 class="font-playful text-xl text-gray-800">Madame Sophie</h2>
+                                <p class="text-gray-600">Your French Conversation Partner</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-right">
+                            <div class="text-sm text-gray-500">Current Topic</div>
+                            <div class="font-semibold text-french-blue">Se Présenter (Introducing Yourself)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Conversation Area -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <!-- Chat Messages -->
+                    <div class="h-96 overflow-y-auto p-6 space-y-4" id="chatContainer">
+                        <!-- @MAP: messages.map(message => ( -->
+                        
+                        <!-- AI Message -->
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-soft-purple rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm">👩‍🏫</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="bg-gray-100 rounded-2xl rounded-tl-md p-4 max-w-md">
+                                    <p class="text-gray-800" data-bind="message.french">Bonjour ! Comment tu t'appelles ?</p>
+                                    <p class="text-sm text-gray-500 mt-1" data-bind="message.translation">Hello! What's your name?</p>
+                                </div>
+                                <div class="flex items-center mt-2 space-x-2">
+                                    <button class="text-xs text-gray-400 hover:text-gray-600" data-event="click:playAudio">🔊 Listen</button>
+                                    <button class="text-xs text-gray-400 hover:text-gray-600" data-event="click:showHelp">💡 Help</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- User Message -->
+                        <div class="flex items-start space-x-3 justify-end">
+                            <div class="flex-1">
+                                <div class="bg-french-blue text-white rounded-2xl rounded-tr-md p-4 max-w-md ml-auto">
+                                    <p data-bind="message.text" data-mock="true">Je m'appelle Emma!</p>
+                                </div>
+                                <div class="flex items-center justify-end mt-2 space-x-2">
+                                    <span class="text-xs text-kid-green">✓ Great pronunciation!</span>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 bg-kid-amber rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm">👧</span>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Follow-up -->
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-soft-purple rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm">👩‍🏫</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="bg-gray-100 rounded-2xl rounded-tl-md p-4 max-w-md">
+                                    <p class="text-gray-800" data-bind="message.french">Enchantée, Emma ! Quel âge as-tu ?</p>
+                                    <p class="text-sm text-gray-500 mt-1" data-bind="message.translation">Nice to meet you, Emma! How old are you?</p>
+                                </div>
+                                <div class="flex items-center mt-2 space-x-2">
+                                    <button class="text-xs text-gray-400 hover:text-gray-600" data-event="click:playAudio">🔊 Listen</button>
+                                    <button class="text-xs text-gray-400 hover:text-gray-600" data-event="click:showHelp">💡 Help</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- @END_MAP )) -->
+                    </div>
+                    
+                    <!-- Quick Suggestion Pills -->
+                    <div class="px-6 py-3 bg-gray-50 border-t">
+                        <div class="flex flex-wrap gap-2">
+                            <button class="bg-white border border-gray-200 rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-french-blue hover:text-white transition-all" data-event="click:useSuggestion" data-implementation="Should insert suggestion into input">
+                                J'ai douze ans (I'm twelve)
+                            </button>
+                            <button class="bg-white border border-gray-200 rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-french-blue hover:text-white transition-all" data-event="click:useSuggestion">
+                                J'ai treize ans (I'm thirteen)
+                            </button>
+                            <button class="bg-white border border-gray-200 rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-french-blue hover:text-white transition-all" data-event="click:useSuggestion">
+                                Je ne comprends pas (I don't understand)
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Input Area -->
+                    <div class="p-6 border-t">
+                        <div class="flex items-end space-x-3">
+                            <div class="flex-1">
+                                <textarea 
+                                    placeholder="Type your response in French... (Tape ta réponse en français...)"
+                                    class="w-full p-4 border-2 border-gray-200 rounded-xl resize-none focus:border-french-blue focus:outline-none transition-colors"
+                                    rows="2"
+                                    data-implementation="Should validate French input and provide suggestions"
+                                    data-mock="true"
+                                ></textarea>
+                                <div class="mt-2 text-xs text-gray-500">
+                                    💡 Need help? Try: "J'ai [your age] ans" (I am [your age] years old)
+                                </div>
+                            </div>
+                            <button class="bg-french-blue hover:bg-french-blue/90 text-white p-4 rounded-xl transition-all transform hover:scale-105" data-event="click:sendMessage" data-implementation="Should send message to OpenAI API">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Help Panel (Hidden by default) -->
+                <div class="bg-kid-amber/10 border border-kid-amber/20 rounded-2xl p-6 mt-6 hidden" id="helpPanel">
+                    <div class="flex items-start space-x-3">
+                        <span class="text-2xl">💡</span>
+                        <div>
+                            <h3 class="font-playful text-lg text-gray-800 mb-2">French Helper</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-700 mb-2">Common Phrases:</h4>
+                                    <div class="space-y-1 text-sm">
+                                        <div>• Bonjour = Hello</div>
+                                        <div>• Au revoir = Goodbye</div>
+                                        <div>• S'il vous plaît = Please</div>
+                                        <div>• Merci = Thank you</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-700 mb-2">Ages in French:</h4>
+                                    <div class="space-y-1 text-sm">
+                                        <div>• J'ai dix ans = I'm 10</div>
+                                        <div>• J'ai onze ans = I'm 11</div>
+                                        <div>• J'ai douze ans = I'm 12</div>
+                                        <div>• J'ai treize ans = I'm 13</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: MainConversationArea -->
+        </div>
+    </div>
+    
+    <!-- @COMPONENT: EncouragementModal [shown after good responses] -->
+    <div id="encouragementModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden" data-implementation="Should show after positive interactions">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+            <div class="text-6xl mb-4">🎉</div>
+            <h3 class="font-playful text-2xl text-gray-800 mb-2">Excellent travail!</h3>
+            <p class="text-gray-600 mb-4">You're getting better at French every day!</p>
+            <div class="flex items-center justify-center space-x-2 mb-6">
+                <span class="text-2xl">⭐</span>
+                <span class="text-2xl">⭐</span>
+                <span class="text-2xl">⭐</span>
+            </div>
+            <button class="bg-kid-green hover:bg-kid-green/90 text-white px-6 py-2 rounded-xl font-semibold transition-colors" data-event="click:closeModal">
+                Continue Learning!
+            </button>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: EncouragementModal -->
+
+    <script>
+        // Simple UI interactions for demonstration
+        (function() {
+            // Topic selection
+            const topicButtons = document.querySelectorAll('[data-event*="selectTopic"]');
+            topicButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active state from all buttons
+                    topicButtons.forEach(b => {
+                        b.className = b.className.replace(/bg-french-blue text-white/, 'bg-white border-2 border-gray-200 text-gray-700');
+                    });
+                    // Add active state to clicked button
+                    this.className = this.className.replace(/bg-white border-2 border-gray-200/, 'bg-french-blue text-white');
+                    // TODO: Load conversation topic content
+                });
+            });
+
+            // Suggestion pills
+            const suggestionButtons = document.querySelectorAll('[data-event*="useSuggestion"]');
+            const textarea = document.querySelector('textarea');
+            suggestionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (textarea) {
+                        const suggestion = this.textContent.split('(')[0].trim();
+                        textarea.value = suggestion;
+                        textarea.focus();
+                    }
+                });
+            });
+
+            // Send message simulation
+            const sendButton = document.querySelector('[data-event*="sendMessage"]');
+            const chatContainer = document.getElementById('chatContainer');
+            if (sendButton && textarea) {
+                sendButton.addEventListener('click', function() {
+                    if (textarea.value.trim()) {
+                        // TODO: Implement OpenAI API integration
+                        // TODO: Add message to conversation
+                        // TODO: Get AI response
+                        textarea.value = '';
+                        
+                        // Show encouragement modal occasionally
+                        if (Math.random() > 0.7) {
+                            document.getElementById('encouragementModal').classList.remove('hidden');
+                        }
+                    }
+                });
+            }
+
+            // Close modal
+            const closeModalButton = document.querySelector('[data-event*="closeModal"]');
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', function() {
+                    document.getElementById('encouragementModal').classList.add('hidden');
+                });
+            }
+
+            // Help panel toggle
+            const helpButtons = document.querySelectorAll('[data-event*="showHelp"]');
+            const helpPanel = document.getElementById('helpPanel');
+            helpButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (helpPanel) {
+                        helpPanel.classList.toggle('hidden');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

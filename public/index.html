@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Buddy - French Conversation</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #dff3ff; padding: 20px; }
+    #chat { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: auto; background: #fff; }
+    .bubble { margin: 5px; padding: 8px 12px; border-radius: 12px; max-width: 70%; }
+    .user { background: #cce5ff; align-self: flex-end; }
+    .buddy { background: #e2e2e2; align-self: flex-start; }
+    #input { margin-top: 10px; display: flex; gap: 10px; }
+    button { padding: 6px 12px; }
+  </style>
+</head>
+<body>
+  <h1>Parle avec Buddy 🇫🇷</h1>
+  <div id="chat"></div>
+  <div id="input">
+    <input id="text" type="text" placeholder="Écris en français..." style="flex:1;">
+    <button onclick="sendText()">Envoyer</button>
+    <button onclick="startVoice()">🎤 Parler</button>
+  </div>
+
+  <script>
+    async function sendText() {
+      const text = document.getElementById("text").value;
+      if (!text) return;
+      addMessage(text, "user");
+      document.getElementById("text").value = "";
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json();
+      addMessage(data.reply, "buddy");
+      speak(data.reply);
+    }
+
+    function addMessage(text, sender) {
+      const chat = document.getElementById("chat");
+      const bubble = document.createElement("div");
+      bubble.className = "bubble " + sender;
+      bubble.innerText = text;
+      chat.appendChild(bubble);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "fr-FR";
+      speechSynthesis.speak(utter);
+    }
+
+    function startVoice() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "fr-FR";
+      recognition.start();
+      recognition.onresult = (event) => {
+        const spoken = event.results[0][0].transcript;
+        addMessage(spoken, "user");
+        fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: spoken })
+        })
+        .then(res => res.json())
+        .then(data => {
+          addMessage(data.reply, "buddy");
+          speak(data.reply);
+        });
+      };
+    }
+  </script>
+</body>
+</html>
