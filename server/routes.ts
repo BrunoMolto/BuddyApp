@@ -12,13 +12,14 @@ router.post("/chat", async (req, res) => {
 
       model: "gpt-4o-mini",
       messages: [
- { role: "system", content: "You are Buddy, a helpful French conversation partner.",}, 
+ { role: "system", content: "Tu es un partenaire de conversation en français. Réponds naturellement en français, donne des réponses variées et pose aussi des questions pour continuer la 
+discussion." }, 
         { role: "user", content: message },
       ],
     });
 
     return res.json({
-      reply: completion.choices[0].message?.content || "Pas de réponse",
+      reply: completion.choices[0]?.message?.content[0]?.text || "Pas de réponse",
     });
   } catch (error) {
     console.error(error);
