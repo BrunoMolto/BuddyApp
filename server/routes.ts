@@ -19,7 +19,7 @@ discussion." },
     });
 
     return res.json({
-      reply: completion.choices[0]?.message?.content[0]?.text || "Pas de réponse",
+      reply: completion.choices[0]?.message?.content || "Pas de réponse",
     });
   } catch (error) {
     console.error(error);
